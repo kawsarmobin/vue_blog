@@ -6,7 +6,17 @@
 
 require('./bootstrap');
 
+import Swal from 'sweetalert2'
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'center-start',
+    showConfirmButton: true,
+    timer: 3000
+  });
+
 window.Vue = require('vue');
+window.Swal = Swal;
+window.Toast = Toast;
 
 /**
  * The following block of code may be used to automatically register your
@@ -20,6 +30,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('app-category-index', require('./components/admin/categories/Index.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

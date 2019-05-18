@@ -72,9 +72,25 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+        <div class="col-md-12 py-4">
+            <div class="row">
+                <div class="col-md-2">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="{{ route('categories.index') }}">Category List</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-10">
+                    <div class="container">
+                        <div class="row">
+                            @yield('content')
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </body>
 </html>

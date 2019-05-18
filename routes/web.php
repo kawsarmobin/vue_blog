@@ -18,3 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('categories', 'Admin\CategoriesController');
+
+Route::delete('/all-category-delete', 'Admin\CategoriesController@deleteAll')->name('category.delete.all');
