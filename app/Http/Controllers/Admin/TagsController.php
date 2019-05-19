@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CategoriesController extends Controller
+class TagsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class CategoriesController extends Controller
     public function index()
     {
         if (request()->expectsJson()) {
-            return response()->json(Category::latest()->get());
+            return response(Tag::latest()->get());
         }
-        return view('admin.categories.index');
+        return view('admin.tags.index');
     }
 
     /**
@@ -33,38 +33,38 @@ class CategoriesController extends Controller
             'name' => 'required|min:2',
         ]);
 
-        Category::create($request->all());
+        Tag::create($request->all());
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Tag $tag)
     {
         $this->validate($request, [
             'name' => 'required|min:2',
         ]);
 
-        $category->update($request->all());
+        $tag->update($request->all());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Tag $tag)
     {
-        $category->delete();
+        $tag->delete();
     }
 
     public function deleteAll()
     {
-        Category::truncate();
+        Tag::truncate();
     }
 }

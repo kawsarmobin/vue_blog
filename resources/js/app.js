@@ -31,6 +31,7 @@ window.Toast = Toast;
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('app-category-index', require('./components/admin/categories/Index.vue').default);
+Vue.component('app-tag-index', require('./components/admin/tags/Index.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

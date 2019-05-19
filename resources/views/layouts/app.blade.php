@@ -76,8 +76,12 @@
             <div class="row">
                 <div class="col-md-2">
                     <ul class="list-group">
+                        <li class="list-group-item bg-success text-white">Menu</li>
                         <li class="list-group-item">
-                            <a href="{{ route('categories.index') }}">Category List</a>
+                            <a href="{{ route('categories.index') }}">Category</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ route('tags.index') }}">Tag</a>
                         </li>
                     </ul>
                 </div>
