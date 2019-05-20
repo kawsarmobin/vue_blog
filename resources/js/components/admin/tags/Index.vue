@@ -73,7 +73,7 @@ export default {
     },
     methods: {
         storeData() {
-            axios.post(`/tags`, this.form)
+            axios.post(`/admin/tags`, this.form)
             .then(res => {
                 this.resetForm();
                 this.getData()
@@ -88,7 +88,7 @@ export default {
             })
         },
         getData() {
-            axios.get(`/tags`)
+            axios.get(`/admin/tags`)
             .then(res => {
                 this.tags = res.data
             })
@@ -99,7 +99,7 @@ export default {
             this.form.name = tag.name
         },
         updateData() {
-            axios.put(`/tags/${this.form.id}`, this.form)
+            axios.put(`/admin/tags/${this.form.id}`, this.form)
             .then(res => {
                 this.resetForm();
                 this.getData()
@@ -124,7 +124,7 @@ export default {
                 confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                 if (result.value) {
-                    axios.delete(`/tags/${tag.id}`)
+                    axios.delete(`/admin/tags/${tag.id}`)
                     .then(res => {
                         this.tags.splice(index, 1)
                         Swal.fire(
@@ -147,7 +147,7 @@ export default {
                 confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                 if (result.value) {
-                    axios.delete(`/all-tag-delete`)
+                    axios.delete(`/admin/all-tag-delete`)
                     .then(res => {
                         this.tags = []
                         Swal.fire(

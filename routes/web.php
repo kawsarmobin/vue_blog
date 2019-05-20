@@ -19,12 +19,15 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     // Category
-    Route::resource('categories', 'Admin\CategoriesController');
-    Route::delete('/all-category-delete', 'Admin\CategoriesController@deleteAll')->name('category.delete.all');
+    Route::resource('categories', 'Admin\CategoriesController', ['as' => 'admin']);
+    Route::delete('/all-category-delete', 'Admin\CategoriesController@deleteAll')->name('admin.category.delete.all');
 
     // Tag
-    Route::resource('/tags', 'Admin\TagsController');
-    Route::delete('/all-tag-delete', 'Admin\TagsController@deleteAll')->name('tag.delete.all');
+    Route::resource('/tags', 'Admin\TagsController', ['as' => 'admin']);
+    Route::delete('/all-tag-delete', 'Admin\TagsController@deleteAll')->name('admin.tag.delete.all');
+
+    // Post
+    Route::resource('/posts', 'Admin\PostsController', ['as' => 'admin']);
 });

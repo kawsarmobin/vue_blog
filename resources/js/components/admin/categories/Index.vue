@@ -73,7 +73,7 @@ export default {
     },
     methods: {
         storeData() {
-            axios.post(`/categories`, this.form)
+            axios.post(`/admin/categories`, this.form)
             .then(res => {
                 this.resetForm();
                 this.getData()
@@ -88,7 +88,7 @@ export default {
             })
         },
         getData() {
-            axios.get(`/categories`)
+            axios.get(`/admin/categories`)
             .then(res => {
                 this.categories = res.data
             })
@@ -99,7 +99,7 @@ export default {
             this.form.name = category.name
         },
         updateData() {
-            axios.put(`/categories/${this.form.id}`, this.form)
+            axios.put(`/admin/categories/${this.form.id}`, this.form)
             .then(res => {
                 this.resetForm();
                 this.getData()
@@ -124,7 +124,7 @@ export default {
                 confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                 if (result.value) {
-                    axios.delete(`/categories/${category.id}`)
+                    axios.delete(`/admin/categories/${category.id}`)
                     .then(res => {
                         this.categories.splice(index, 1)
                         Swal.fire(
@@ -147,7 +147,7 @@ export default {
                 confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                 if (result.value) {
-                    axios.delete(`/all-category-delete`)
+                    axios.delete(`/admin/all-category-delete`)
                     .then(res => {
                         this.categories = []
                         Swal.fire(

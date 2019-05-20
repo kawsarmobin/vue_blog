@@ -78,10 +78,16 @@
                     <ul class="list-group">
                         <li class="list-group-item bg-success text-white">Menu</li>
                         <li class="list-group-item">
-                            <a href="{{ route('categories.index') }}">Category</a>
+                            <a href="{{ route('home') }}">Dashboard</a>
                         </li>
                         <li class="list-group-item">
-                            <a href="{{ route('tags.index') }}">Tag</a>
+                            <a href="{{ route('admin.categories.index') }}">Category</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ route('admin.tags.index') }}">Tag</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ route('admin.posts.index') }}">Post</a>
                         </li>
                     </ul>
                 </div>
