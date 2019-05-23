@@ -6,7 +6,7 @@
                     <div class="card">
                         <div class="card-header bg-primary">
                             <h5 class="card-title float-left text-white">Posts</h5>
-                            <app-post-create  :tags="tags" :categories="categories"></app-post-create>
+                            <app-post-create  :tags="tags" :categories="categories" @created="getData()"></app-post-create>
                         </div>
                         <div class="card-body">
                             <table class="table">
@@ -61,7 +61,7 @@ export default {
     },
     methods: {
         getData() {
-            axios.get(`/admin/posts`)
+            axios.get(`/posts`)
             .then(res => {
                 this.posts = res.data
             })
@@ -77,7 +77,7 @@ export default {
                 confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                 if (result.value) {
-                    axios.delete(`/admin/posts/${post.id}`)
+                    axios.delete(`/posts/${post.id}`)
                     .then(res => {
                         this.getData()
                         Swal.fire(

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use App\Models\Tag;
 use App\Models\Post;
@@ -20,10 +20,11 @@ class PostsController extends Controller
     {
         if (request()->expectsJson()) {
             return response()->json(Post::orderBy('title')
-                                                ->with(['category', 'tag'])
-                                                ->get());
+                            ->with(['category', 'tag'])
+                            ->where('user_id', auth()->user()->id)
+                            ->get());
         }
-        return view('admin.posts.index')
+        return view('users.posts.index')
                     ->with('categories', Category::orderBy('name')->get())
                     ->with('tags', Tag::orderBy('name')->get());
     }

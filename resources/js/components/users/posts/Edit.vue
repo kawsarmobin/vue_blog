@@ -1,18 +1,18 @@
 <template>
-    <div>
+    <span>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-sm btn-outline-light float-right" data-toggle="modal" data-target="#exampleModal">
-        <i class="fa fa-plus"></i> Add New
+        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" :data-target="'#exampleModal-'+post.id">
+        <i class="fa fa-edit"></i>
         </button>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" :id="'exampleModal-'+post.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Post Create</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Post Update</h5>
                     </div>
-                    <form @submit.prevent="storeData()">
+                    <form @submit.prevent="updateData()">
                         <div class="modal-body">
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Category</label>
@@ -57,6 +57,14 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Old Attachment</label>
+                                <div class="col-sm-10">
+                                    <div class="col-md-6 p-0">
+                                        <img :src="post.attachmentUrl" class="img-responsive img-thumbnail" width="50%">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Attachment</label>
                                 <div class="col-sm-10">
                                     <div class="input-group">
@@ -76,26 +84,26 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
+    </span>
 </template>
 
 <script>
 export default {
-    props:['categories', 'tags'],
+    props:['categories', 'tags', 'post'],
     data() {
         return {
             form: {
-                id: '',
-                category: '',
-                tag: '',
-                title: '',
-                description: '',
+                id: this.post.id,
+                category: this.post.category_id,
+                tag: this.post.tag_id,
+                title: this.post.title,
+                description: this.post.description,
                 attachment: {
                     type: '',
                     file: ''
@@ -119,11 +127,11 @@ export default {
         toggleModal() {
         this.modalShown = !this.modalShown;
     },
-        storeData() {
-            axios.post(`/admin/posts`, this.form)
+        updateData() {
+            axios.put(`/posts/${this.post.id}`, this.form)
             .then(res => {
                 this.formReset();
-                $('#exampleModal').modal('hide');
+                $('#exampleModal-'+this.post.id).modal('hide');
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -133,8 +141,10 @@ export default {
 
                 Toast.fire({
                     type: 'success',
-                    title: 'Post created successfully'
+                    title: 'Post updated successfully'
                 })
+
+                this.$emit('updated');
             })
             .catch(errors => {
                 this.errors = errors.response.data.errors
@@ -147,7 +157,6 @@ export default {
             this.createImage(files[0]);
         },
         createImage(file) {
-
             let file_name = file.name;
             let type = file_name.split(".").pop()
             this.form.attachment.type = type;

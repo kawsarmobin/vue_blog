@@ -74,24 +74,28 @@
 
         <div class="col-md-12 py-4">
             <div class="row">
+                @if (Auth::check())
                 <div class="col-md-2">
                     <ul class="list-group">
                         <li class="list-group-item bg-success text-white">Menu</li>
                         <li class="list-group-item">
                             <a href="{{ route('home') }}">Dashboard</a>
                         </li>
+                        @if (auth()->user()->is_admin)
+                            <li class="list-group-item">
+                                <a href="{{ route('admin.categories.index') }}">Category</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="{{ route('admin.tags.index') }}">Tag</a>
+                            </li>
+                        @endif
                         <li class="list-group-item">
-                            <a href="{{ route('admin.categories.index') }}">Category</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="{{ route('admin.tags.index') }}">Tag</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="{{ route('admin.posts.index') }}">Post</a>
+                            <a href="{{ route('posts.index') }}">My Post</a>
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-10">
+                @endif
+                <div class="{{ Auth::check() ? 'col-md-10' : 'col-md-12' }}">
                     <div class="container">
                         <div class="row">
                             @yield('content')
